@@ -1,0 +1,4 @@
+$ supabase start
+failed to inspect service: Cannot connect to the Docker daemon at unix:///Users/pengkai/.docker/run/docker.sock. Is the docker daemon running?
+Docker Desktop is a prerequisite for local development. Follow the official docs to install: https://docs.docker.com/desktop
+[ELIFECYCLE] Command failed with exit code 1.

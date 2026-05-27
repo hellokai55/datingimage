@@ -5,6 +5,7 @@
   "engines": {
     "node": ">=24.0.0"
   },
+  "packageManager": "pnpm@11.1.2",
   "scripts": {
     "dev": "next dev --turbopack",
     "start": "next start",
@@ -90,7 +91,6 @@
     "react-dom": "^19.2.6",
     "react-hook-form": "^7.76.0",
     "react-hot-toast": "^2.6.0",
-    "react-no-ssr": "^1.1.0",
     "react-resizable-panels": "^2.1.9",
     "recharts": "^2.15.4",
     "rooks": "^9.8.0",

@@ -1,0 +1,3 @@
+$ supabase gen types typescript --linked --schema public > ./lib/database.types.ts
+sh: ./lib/database.types.ts: No such file or directory
+[ELIFECYCLE] Command failed with exit code 1.
