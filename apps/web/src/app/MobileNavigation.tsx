@@ -78,11 +78,7 @@ export function MobileNavigation() {
               <CloseIcon className="h-6 w-6 stroke-slate-500" />
             </button>
             <Link href="/" className="block" aria-label="Home page">
-              <img
-                src="https://usenextbase.com/logos/nextbase/Logo%2006.png"
-                className="h-9 block sm:h-9"
-                alt="Nextbase Logo"
-              />
+              <span className="text-primary font-bold text-lg">DatingImage</span>
             </Link>
           </div>
         </Dialog.Panel>

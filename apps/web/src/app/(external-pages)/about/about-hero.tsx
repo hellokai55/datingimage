@@ -8,30 +8,21 @@ export function AboutHero() {
   return (
     <div className="text-center space-y-4">
       <Badge variant="outline" className="mb-4">
-        About Nextbase
+        About DatingImage
       </Badge>
       <T.H1 className="text-4xl sm:text-5xl md:text-6xl">
-        Modern Full-Stack{' '}
+        AI-Powered{' '}
         <span className="bg-gradient-to-r from-primary to-primary bg-clip-text text-transparent">
-          Starter Kit
+          Dating Photos
         </span>
       </T.H1>
       <T.P className="mx-auto max-w-[700px] text-lg text-muted-foreground">
-        Built with Next.js, TypeScript, Supabase, and shadcn/ui. Everything
-        you need to ship your next SaaS product fast.
+        Upload your selfies, choose from 8 stunning scenes, and get professional
+        dating profile photos in minutes. No photographer needed.
       </T.P>
       <div className="flex flex-wrap justify-center gap-4 pt-4">
         <Button size="lg" asChild>
-          <Link href="/login">Get Started</Link>
-        </Button>
-        <Button size="lg" variant="outline" asChild>
-          <Link
-            href="https://github.com/imbhargav5/nextbase-nextjs-supabase-starter"
-            target="_blank"
-          >
-            <Github className="mr-2 h-5 w-5" />
-            View on GitHub
-          </Link>
+          <Link href="/sign-up">Get Started Free</Link>
         </Button>
       </div>
     </div>

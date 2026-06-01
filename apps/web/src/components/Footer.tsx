@@ -61,7 +61,7 @@ const Footer = () => {
               </Button>
               <Button variant="ghost" size="icon" asChild>
                 <Link
-                  href="https://twitter.com/usenextbase"
+                  href="https://twitter.com/datingimage"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Twitter"
@@ -86,11 +86,11 @@ const Footer = () => {
             <T.H4 className="text-sm font-semibold uppercase">Resources</T.H4>
             <nav className="flex flex-col space-y-2.5">
               <Link
-                href="https://usenextbase.com"
+                href="https://datingimage.vercel.app"
                 target="_blank"
                 className="text-sm text-muted-foreground hover:text-foreground transition-colors"
               >
-                NextBase
+                DatingImage
               </Link>
             </nav>
           </div>
@@ -138,15 +138,7 @@ const Footer = () => {
 
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <T.Small className="text-muted-foreground">
-            © 2023{' '}
-            <Link
-              href="https://usenextbase.com"
-              target="_blank"
-              className="hover:text-foreground transition-colors"
-            >
-              Arni Creative Private Limited
-            </Link>
-            . All Rights Reserved.
+            © 2025 DatingImage. All Rights Reserved.
           </T.Small>
 
           <div className="flex items-center gap-2">

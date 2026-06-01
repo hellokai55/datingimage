@@ -17,10 +17,9 @@ export function AboutCTA() {
         <EmptyMedia variant="icon">
           <Rocket />
         </EmptyMedia>
-        <EmptyTitle>Ready to Build Something Amazing?</EmptyTitle>
+        <EmptyTitle>Ready for Better Dating Photos?</EmptyTitle>
         <EmptyDescription>
-          Clone the repository and start building your next project with the
-          best tools in the ecosystem.
+          Join thousands of users who transformed their dating profiles with AI-generated photos.
         </EmptyDescription>
       </EmptyHeader>
       <EmptyContent>
@@ -30,7 +29,7 @@ export function AboutCTA() {
           </Button>
           <Button size="lg" variant="outline" asChild>
             <Link
-              href="https://github.com/imbhargav5/nextbase-nextjs-supabase-starter"
+              href="https://github.com/hellokai55/datingimage"
               target="_blank"
             >
               <Github className="mr-2 h-5 w-5" />

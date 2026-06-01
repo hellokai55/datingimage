@@ -8,7 +8,7 @@ export default function Navbar() {
       <div className="container flex h-14 max-w-screen-2xl items-center mx-auto px-4">
         <div className="flex items-center gap-6 flex-1">
           <Link href="/" className="flex items-center gap-2 font-bold text-lg">
-            <span className="text-primary">Nextbase</span>
+            <span className="text-primary">DatingImage</span>
           </Link>
           <nav className="hidden md:flex items-center gap-6 text-sm">
             <Link href="/about" className="text-muted-foreground transition-colors hover:text-foreground">

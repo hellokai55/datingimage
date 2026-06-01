@@ -7,15 +7,12 @@ const Banner: React.FC = () => {
   return (
     <Alert className="rounded-none border-x-0 border-t-0 bg-primary text-primary-foreground">
       <AlertDescription className="text-center">
-        Checkout premium Nextbase starter templates with integrated
-        authentication, payments and admin panel{' '}
+        AI-powered dating photos. Upload your selfies, choose a scene, get 8 stunning photos in minutes.{' '}
         <Link
-          href="https://usenextbase.com/demos"
-          target="_blank"
-          rel="noopener noreferrer"
+          href="/sign-up"
           className="inline-flex items-center gap-1 font-medium underline underline-offset-4 hover:text-primary-foreground/80"
         >
-          here
+          Get started free
           <ExternalLink className="h-3 w-3" />
         </Link>
       </AlertDescription>
