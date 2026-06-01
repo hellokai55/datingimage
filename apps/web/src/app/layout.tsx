@@ -24,8 +24,8 @@ const robotoMono = localFont({
 });
 
 export const metadata = {
-  title: 'Nextbase Open source starter',
-  description: 'Built with Next.js, Supabase, and Tailwind CSS',
+  title: 'DatingImage — AI Dating Photo Generator',
+  description: 'Upload your selfies. Get 8 curated dating photos. Zero compromise.',
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {

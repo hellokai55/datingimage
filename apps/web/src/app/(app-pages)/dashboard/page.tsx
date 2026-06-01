@@ -1,17 +1,34 @@
-import { getUserPrivateItems } from '@/data/anon/privateItems';
+import { getUserProjects, getUserProfile } from '@/data/user/projects';
 import { Suspense } from 'react';
-import { DashboardHeading } from './dashboard-heading';
-import { DashboardListSkeleton } from './dashboard-list-skeleton';
-import { DashboardPrivateItemsSection } from './dashboard-private-items-section';
+import { DashboardHeader } from './dashboard-header';
+import { DashboardProjectsList } from './dashboard-projects-list';
+import { DashboardEmpty } from './dashboard-empty';
+import { DashboardSkeleton } from './dashboard-skeleton';
 
 export default function DashboardPage() {
-  const privateItemsPromise = getUserPrivateItems();
   return (
-    <div className="flex flex-1 flex-col gap-4 p-4 md:p-6">
-      <DashboardHeading />
-      <Suspense fallback={<DashboardListSkeleton />}>
-        <DashboardPrivateItemsSection privateItemsPromise={privateItemsPromise} />
+    <div className="flex flex-1 flex-col gap-6 p-4 md:p-8">
+      <Suspense fallback={<DashboardSkeleton />}>
+        <DashboardContent />
       </Suspense>
     </div>
+  );
+}
+
+async function DashboardContent() {
+  const [projects, profile] = await Promise.all([
+    getUserProjects(),
+    getUserProfile(),
+  ]);
+
+  return (
+    <>
+      <DashboardHeader credits={profile?.credits || 0} />
+      {projects.length === 0 ? (
+        <DashboardEmpty />
+      ) : (
+        <DashboardProjectsList projects={projects} />
+      )}
+    </>
   );
 }

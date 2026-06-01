@@ -22,6 +22,12 @@ const config: NextConfig = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: '*.evolink.ai',
+        port: '',
+        pathname: '/**',
+      },
     ],
   },
 };
