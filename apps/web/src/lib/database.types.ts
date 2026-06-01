@@ -7,6 +7,11 @@ export type Json =
   | Json[]
 
 export type Database = {
+  // Allows to automatically instantiate createClient with right options
+  // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
+  __InternalSupabase: {
+    PostgrestVersion: "14.5"
+  }
   public: {
     Tables: {
       content_blog_post_comments: {
@@ -83,6 +88,145 @@ export type Database = {
         }
         Relationships: []
       }
+      credit_transactions: {
+        Row: {
+          amount: number
+          balance_after: number | null
+          created_at: string
+          description: string | null
+          id: string
+          project_id: string | null
+          type: string
+          user_id: string
+        }
+        Insert: {
+          amount: number
+          balance_after?: number | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          project_id?: string | null
+          type: string
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          balance_after?: number | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          project_id?: string | null
+          type?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "credit_transactions_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "photo_projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      generated_photos: {
+        Row: {
+          created_at: string
+          deleted_at: string | null
+          evolink_image_id: string | null
+          id: string
+          project_id: string
+          prompt: string | null
+          sort_order: number
+          storage_path: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          deleted_at?: string | null
+          evolink_image_id?: string | null
+          id?: string
+          project_id: string
+          prompt?: string | null
+          sort_order?: number
+          storage_path: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          deleted_at?: string | null
+          evolink_image_id?: string | null
+          id?: string
+          project_id?: string
+          prompt?: string | null
+          sort_order?: number
+          storage_path?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "generated_photos_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "photo_projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      photo_projects: {
+        Row: {
+          completed_at: string | null
+          created_at: string
+          credits_used: number
+          deleted_at: string | null
+          error_message: string | null
+          evolink_task_id: string | null
+          expires_at: string | null
+          id: string
+          photo_count: number
+          scene: string
+          started_at: string | null
+          status: string
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          completed_at?: string | null
+          created_at?: string
+          credits_used?: number
+          deleted_at?: string | null
+          error_message?: string | null
+          evolink_task_id?: string | null
+          expires_at?: string | null
+          id?: string
+          photo_count?: number
+          scene: string
+          started_at?: string | null
+          status?: string
+          title?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          completed_at?: string | null
+          created_at?: string
+          credits_used?: number
+          deleted_at?: string | null
+          error_message?: string | null
+          evolink_task_id?: string | null
+          expires_at?: string | null
+          id?: string
+          photo_count?: number
+          scene?: string
+          started_at?: string | null
+          status?: string
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       private_items: {
         Row: {
           created_at: string
@@ -107,12 +251,61 @@ export type Database = {
         }
         Relationships: []
       }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string
+          credits: number
+          display_name: string | null
+          id: string
+          updated_at: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string
+          credits?: number
+          display_name?: string | null
+          id: string
+          updated_at?: string
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string
+          credits?: number
+          display_name?: string | null
+          id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      deduct_credits: {
+        Args: {
+          p_amount: number
+          p_description?: string
+          p_project_id?: string
+          p_type?: string
+          p_user_id: string
+        }
+        Returns: number
+      }
+      fail_project_and_refund: {
+        Args: { p_project_id: string; p_reason?: string }
+        Returns: undefined
+      }
+      refund_credits: {
+        Args: {
+          p_amount: number
+          p_description?: string
+          p_project_id?: string
+          p_user_id: string
+        }
+        Returns: number
+      }
     }
     Enums: {
       [_ in never]: never
@@ -245,4 +438,3 @@ export const Constants = {
     Enums: {},
   },
 } as const
-
