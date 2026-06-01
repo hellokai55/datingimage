@@ -14,12 +14,14 @@ ON CONFLICT (id) DO NOTHING;
 -- 2. Storage RLS Policies — uploads bucket
 -- ============================================================
 -- Users can read their own uploads
-CREATE POLICY IF NOT EXISTS "Users can read own uploads"
+DROP POLICY IF EXISTS "Users can read own uploads" ON storage.objects;
+CREATE POLICY "Users can read own uploads"
   ON storage.objects FOR SELECT
   USING (bucket_id = 'uploads' AND auth.uid()::text = (storage.foldername(name))[1]);
 
 -- Users can upload to their own folder
-CREATE POLICY IF NOT EXISTS "Users can upload to own folder"
+DROP POLICY IF EXISTS "Users can upload to own folder" ON storage.objects;
+CREATE POLICY "Users can upload to own folder"
   ON storage.objects FOR INSERT
   WITH CHECK (
     bucket_id = 'uploads'
@@ -28,7 +30,8 @@ CREATE POLICY IF NOT EXISTS "Users can upload to own folder"
   );
 
 -- Users can delete their own uploads
-CREATE POLICY IF NOT EXISTS "Users can delete own uploads"
+DROP POLICY IF EXISTS "Users can delete own uploads" ON storage.objects;
+CREATE POLICY "Users can delete own uploads"
   ON storage.objects FOR DELETE
   USING (bucket_id = 'uploads' AND auth.uid()::text = (storage.foldername(name))[1]);
 
@@ -36,16 +39,19 @@ CREATE POLICY IF NOT EXISTS "Users can delete own uploads"
 -- 3. Storage RLS Policies — generated bucket
 -- ============================================================
 -- Users can read their own generated photos
-CREATE POLICY IF NOT EXISTS "Users can read own generated photos"
+DROP POLICY IF EXISTS "Users can read own generated photos" ON storage.objects;
+CREATE POLICY "Users can read own generated photos"
   ON storage.objects FOR SELECT
   USING (bucket_id = 'generated' AND auth.uid()::text = (storage.foldername(name))[1]);
 
 -- Service role can write generated photos (webhook / server action)
-CREATE POLICY IF NOT EXISTS "Service role can write generated photos"
+DROP POLICY IF EXISTS "Service role can write generated photos" ON storage.objects;
+CREATE POLICY "Service role can write generated photos"
   ON storage.objects FOR INSERT
   WITH CHECK (bucket_id = 'generated');
 
 -- Users can delete their own generated photos
-CREATE POLICY IF NOT EXISTS "Users can delete own generated photos"
+DROP POLICY IF EXISTS "Users can delete own generated photos" ON storage.objects;
+CREATE POLICY "Users can delete own generated photos"
   ON storage.objects FOR DELETE
   USING (bucket_id = 'generated' AND auth.uid()::text = (storage.foldername(name))[1]);

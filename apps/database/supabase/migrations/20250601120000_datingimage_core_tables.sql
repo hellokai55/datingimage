@@ -255,31 +255,41 @@ CREATE TRIGGER on_auth_user_created
 
 -- profiles
 ALTER TABLE public.profiles ENABLE ROW LEVEL SECURITY;
-CREATE POLICY IF NOT EXISTS profiles_select ON public.profiles FOR SELECT USING (auth.uid() = id);
-CREATE POLICY IF NOT EXISTS profiles_update ON public.profiles FOR UPDATE USING (auth.uid() = id);
+DROP POLICY IF EXISTS profiles_select ON public.profiles;
+CREATE POLICY profiles_select ON public.profiles FOR SELECT USING (auth.uid() = id);
+DROP POLICY IF EXISTS profiles_update ON public.profiles;
+CREATE POLICY profiles_update ON public.profiles FOR UPDATE USING (auth.uid() = id);
 
 -- photo_projects
 ALTER TABLE public.photo_projects ENABLE ROW LEVEL SECURITY;
-CREATE POLICY IF NOT EXISTS photo_projects_select ON public.photo_projects
+DROP POLICY IF EXISTS photo_projects_select ON public.photo_projects;
+CREATE POLICY photo_projects_select ON public.photo_projects
   FOR SELECT USING (auth.uid() = user_id AND deleted_at IS NULL);
-CREATE POLICY IF NOT EXISTS photo_projects_insert ON public.photo_projects
+DROP POLICY IF EXISTS photo_projects_insert ON public.photo_projects;
+CREATE POLICY photo_projects_insert ON public.photo_projects
   FOR INSERT WITH CHECK (auth.uid() = user_id);
-CREATE POLICY IF NOT EXISTS photo_projects_update ON public.photo_projects
+DROP POLICY IF EXISTS photo_projects_update ON public.photo_projects;
+CREATE POLICY photo_projects_update ON public.photo_projects
   FOR UPDATE USING (auth.uid() = user_id)
   WITH CHECK (auth.uid() = user_id);
-CREATE POLICY IF NOT EXISTS photo_projects_delete ON public.photo_projects
+DROP POLICY IF EXISTS photo_projects_delete ON public.photo_projects;
+CREATE POLICY photo_projects_delete ON public.photo_projects
   FOR DELETE USING (auth.uid() = user_id);
 
 -- generated_photos
 ALTER TABLE public.generated_photos ENABLE ROW LEVEL SECURITY;
-CREATE POLICY IF NOT EXISTS generated_photos_select ON public.generated_photos
+DROP POLICY IF EXISTS generated_photos_select ON public.generated_photos;
+CREATE POLICY generated_photos_select ON public.generated_photos
   FOR SELECT USING (auth.uid() = user_id AND deleted_at IS NULL);
-CREATE POLICY IF NOT EXISTS generated_photos_insert ON public.generated_photos
+DROP POLICY IF EXISTS generated_photos_insert ON public.generated_photos;
+CREATE POLICY generated_photos_insert ON public.generated_photos
   FOR INSERT WITH CHECK (auth.uid() = user_id);
-CREATE POLICY IF NOT EXISTS generated_photos_delete ON public.generated_photos
+DROP POLICY IF EXISTS generated_photos_delete ON public.generated_photos;
+CREATE POLICY generated_photos_delete ON public.generated_photos
   FOR DELETE USING (auth.uid() = user_id);
 
 -- credit_transactions
 ALTER TABLE public.credit_transactions ENABLE ROW LEVEL SECURITY;
-CREATE POLICY IF NOT EXISTS credit_transactions_select ON public.credit_transactions
+DROP POLICY IF EXISTS credit_transactions_select ON public.credit_transactions;
+CREATE POLICY credit_transactions_select ON public.credit_transactions
   FOR SELECT USING (auth.uid() = user_id);
