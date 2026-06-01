@@ -42,6 +42,7 @@ export async function createGenerationTask(params: {
       size: '1024x1024',
       quality: 'high',
       n: count,
+      webhook_url: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://datingimage.vercel.app'}/api/webhooks/evolink`,
     }),
   });
 
