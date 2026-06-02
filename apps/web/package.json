@@ -13,6 +13,8 @@
     "test": "vitest run --root src",
     "test:watch": "vitest --root src",
     "test:e2e": "playwright test",
+    "test:e2e:anon": "playwright test e2e/anon/",
+    "test:e2e:ui": "playwright test --ui",
     "lint": "oxlint src/",
     "typecheck": "tsc --noEmit",
     "tsc": "tsc",

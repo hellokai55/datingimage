@@ -1,13 +1,19 @@
 'use client';
-import React, { Suspense } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 
 import { Toaster as SonnerToaster } from 'sonner';
 import { ThemeProvider, useTheme } from 'next-themes';
 import { AppProgressBar as ProgressBar } from 'next-nprogress-bar';
 
 function CustomerToaster() {
-  const theme = useTheme();
-  const currentTheme = theme.theme === 'light' ? 'light' : 'dark';
+  const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const currentTheme = mounted && resolvedTheme === 'dark' ? 'dark' : 'light';
   return <SonnerToaster richColors theme={currentTheme} />;
 }
 
@@ -25,12 +31,12 @@ export function DynamicLayoutProviders({
   children: React.ReactNode;
 }) {
   return (
-    <ThemeProvider enableSystem themes={['light', 'dark']} defaultTheme="light">
+    <ThemeProvider attribute="class" enableSystem themes={['light', 'dark']} defaultTheme="light">
       {children}
       <Suspense>
         <ProgressBar
           height="4px"
-          color="#0047ab"
+          color="hsl(var(--primary))"
           options={{ showSpinner: false }}
           shallowRouting
         />

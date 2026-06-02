@@ -6,8 +6,6 @@ import { toast } from 'sonner';
 
 import { Email } from '@/components/Auth/Email';
 import { EmailConfirmationPendingCard } from '@/components/Auth/EmailConfirmationPendingCard';
-import { T } from '@/components/ui/Typography';
-import { Card } from '@/components/ui/card';
 import { resetPasswordAction } from '@/data/auth/auth';
 
 export function ForgotPassword(): JSX.Element {
@@ -45,22 +43,23 @@ export function ForgotPassword(): JSX.Element {
           resetSuccessMessage={setSuccessMessage}
         />
       ) : (
-        <Card className="container h-full grid items-center text-left max-w-lg mx-auto overflow-auto">
-          <div className="space-y-4">
-            <T.H4>Forgot Password</T.H4>
-            <T.P className="text-muted-foreground">
+        <div className="w-full max-w-sm mx-auto space-y-6">
+          <div className="space-y-2">
+            <h1 className="text-2xl font-semibold tracking-tight">
+              Forgot Password
+            </h1>
+            <p className="text-muted-foreground">
               Enter your email to receive a Magic Link to reset your password.
-            </T.P>
-
-            <Email
-              onSubmit={(email) => {
-                execute({ email });
-              }}
-              isLoading={status === 'executing'}
-              view="forgot-password"
-            />
+            </p>
           </div>
-        </Card>
+          <Email
+            onSubmit={(email) => {
+              execute({ email });
+            }}
+            isLoading={status === 'executing'}
+            view="forgot-password"
+          />
+        </div>
       )}
     </>
   );

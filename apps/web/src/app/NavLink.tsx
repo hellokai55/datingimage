@@ -16,7 +16,7 @@ export function NavLink({
     <Link
       {...props}
       href={href}
-      className={cn(isActive ? 'font-bold text-blue-600' : 'font-medium')}
+      className={cn(isActive ? 'font-bold text-primary' : 'font-medium')}
     ></Link>
   );
 }

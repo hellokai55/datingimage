@@ -9,7 +9,7 @@ export function P({
 }: ComponentPropsWithoutRef<'p'> & {
   asChild?: boolean;
 }) {
-  const classNames = cn('leading-7', '&:not(:first-child):mt-6', className);
+  const classNames = cn('leading-7', className);
   const Component = asChild ? Slot : 'p';
   return <Component className={classNames} {...rest}></Component>;
 }

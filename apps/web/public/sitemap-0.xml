@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
-<url><loc>https://my-awesome-saas.com</loc><lastmod>2026-06-01T06:22:04.642Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://my-awesome-saas.com/about</loc><lastmod>2026-06-01T06:22:04.643Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://my-awesome-saas.com/auth/auth-code-error</loc><lastmod>2026-06-01T06:22:04.643Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://my-awesome-saas.com/dashboard</loc><lastmod>2026-06-01T06:22:04.643Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://my-awesome-saas.com/dashboard/new</loc><lastmod>2026-06-01T06:22:04.643Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://my-awesome-saas.com/forgot-password</loc><lastmod>2026-06-01T06:22:04.643Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://my-awesome-saas.com/login</loc><lastmod>2026-06-01T06:22:04.643Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://my-awesome-saas.com/private-items</loc><lastmod>2026-06-01T06:22:04.643Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://my-awesome-saas.com/project/new</loc><lastmod>2026-06-01T06:22:04.643Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://my-awesome-saas.com/project/new/scene</loc><lastmod>2026-06-01T06:22:04.643Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://my-awesome-saas.com/sign-up</loc><lastmod>2026-06-01T06:22:04.643Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://my-awesome-saas.com/update-password</loc><lastmod>2026-06-01T06:22:04.643Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://my-awesome-saas.com</loc><lastmod>2026-06-02T07:22:52.120Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://my-awesome-saas.com/about</loc><lastmod>2026-06-02T07:22:52.121Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://my-awesome-saas.com/auth/auth-code-error</loc><lastmod>2026-06-02T07:22:52.121Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://my-awesome-saas.com/dashboard</loc><lastmod>2026-06-02T07:22:52.121Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://my-awesome-saas.com/dashboard/new</loc><lastmod>2026-06-02T07:22:52.121Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://my-awesome-saas.com/faq</loc><lastmod>2026-06-02T07:22:52.121Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://my-awesome-saas.com/forgot-password</loc><lastmod>2026-06-02T07:22:52.121Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://my-awesome-saas.com/login</loc><lastmod>2026-06-02T07:22:52.121Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://my-awesome-saas.com/pricing</loc><lastmod>2026-06-02T07:22:52.121Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://my-awesome-saas.com/privacy</loc><lastmod>2026-06-02T07:22:52.121Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://my-awesome-saas.com/private-items</loc><lastmod>2026-06-02T07:22:52.121Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://my-awesome-saas.com/project/new</loc><lastmod>2026-06-02T07:22:52.121Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://my-awesome-saas.com/project/new/scene</loc><lastmod>2026-06-02T07:22:52.121Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://my-awesome-saas.com/sign-up</loc><lastmod>2026-06-02T07:22:52.121Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://my-awesome-saas.com/terms</loc><lastmod>2026-06-02T07:22:52.121Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://my-awesome-saas.com/update-password</loc><lastmod>2026-06-02T07:22:52.121Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
 </urlset>

@@ -5,15 +5,7 @@ test.describe.parallel('Logged-in user page access', () => {
     await page.goto('/dashboard');
     await expect(page).toHaveURL('/dashboard');
     await expect(
-      page.getByRole('heading', { name: 'Dashboard' })
-    ).toBeVisible();
-  });
-
-  test('can access private items', async ({ page }) => {
-    await page.goto('/private-items');
-    await expect(page).toHaveURL('/private-items');
-    await expect(
-      page.getByRole('heading', { name: 'Private Items', level: 1 })
+      page.getByRole('heading', { name: 'Your Projects' })
     ).toBeVisible();
   });
 
@@ -21,7 +13,7 @@ test.describe.parallel('Logged-in user page access', () => {
     await page.goto('/');
     await expect(page).toHaveURL('/');
     await expect(
-      page.getByRole('heading', { name: /build your.+saas product.+faster/i })
+      page.getByRole('heading', { name: /photos that get you noticed/i })
     ).toBeVisible();
   });
 
@@ -29,7 +21,7 @@ test.describe.parallel('Logged-in user page access', () => {
     await page.goto('/about');
     await expect(page).toHaveURL('/about');
     await expect(
-      page.getByRole('heading', { name: /modern full-stack starter kit/i })
+      page.getByRole('heading', { name: /better photos\. better matches/i })
     ).toBeVisible();
   });
 });

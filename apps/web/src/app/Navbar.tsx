@@ -14,6 +14,12 @@ export default function Navbar() {
             <Link href="/about" className="text-muted-foreground transition-colors hover:text-foreground">
               About
             </Link>
+            <Link href="/pricing" className="text-muted-foreground transition-colors hover:text-foreground">
+              Pricing
+            </Link>
+            <Link href="/faq" className="text-muted-foreground transition-colors hover:text-foreground">
+              FAQ
+            </Link>
           </nav>
         </div>
         <div className="flex items-center gap-2">

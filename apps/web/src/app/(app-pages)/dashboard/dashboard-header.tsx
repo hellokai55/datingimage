@@ -3,7 +3,6 @@
 import { Button } from '@/components/ui/button';
 import { Plus, Zap, CreditCard } from 'lucide-react';
 import Link from 'next/link';
-import { toast } from 'sonner';
 
 export function DashboardHeader({ credits }: { credits: number }) {
   return (
@@ -15,20 +14,22 @@ export function DashboardHeader({ credits }: { credits: number }) {
         </p>
       </div>
       <div className="flex items-center gap-3">
-        <button
-          onClick={() => toast.info('Credit top-up coming soon! 🚀')}
-          className="flex items-center gap-2 rounded-full bg-primary/10 px-4 py-2 hover:bg-primary/20 transition-colors cursor-pointer"
+        <Link
+          href="/pricing"
+          className="flex items-center gap-2 rounded-full bg-primary/10 px-4 py-2 hover:bg-primary/20 transition-colors"
         >
           <Zap className="h-4 w-4 text-primary" />
           <span className="text-sm font-medium">{credits} credits</span>
-        </button>
+        </Link>
         <Button
           variant="outline"
           size="sm"
-          onClick={() => toast.info('Stripe payment integration coming soon! 🚀')}
+          asChild
         >
-          <CreditCard className="mr-2 h-4 w-4" />
-          Top Up
+          <Link href="/pricing">
+            <CreditCard className="mr-2 h-4 w-4" />
+            Top Up
+          </Link>
         </Button>
         <Button asChild>
           <Link href="/project/new">

@@ -1,12 +1,5 @@
 'use client';
 import { RenderProviders } from '@/components/Auth/RenderProviders';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
 import { signInWithProviderAction } from '@/data/auth/auth';
 import { useAction } from 'next-safe-action/hooks';
 import { useRouter } from 'next/navigation';
@@ -56,7 +49,7 @@ export function Login({
   );
 
   return (
-    <div className="container flex items-center justify-center text-left max-w-lg mx-auto overflow-auto min-h-[470px]">
+    <div className="w-full max-w-sm mx-auto">
       {redirectInProgress ? (
         <div className="text-center space-y-4">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto" />
@@ -66,27 +59,32 @@ export function Login({
           </p>
         </div>
       ) : (
-        <div className="space-y-8 bg-background p-6 rounded-lg shadow-sm dark:border w-full">
-          <Card className="border-none shadow-none">
-            <CardHeader className="py-6 px-0 text-center">
-              <CardTitle>Welcome to DatingImage</CardTitle>
-              <CardDescription>
-                Sign in with your Google account to get started
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-2 p-0">
-              <RenderProviders
-                providers={['google']}
-                isLoading={providerStatus === 'executing'}
-                onProviderLoginRequested={(provider: 'google') =>
-                  executeProvider({ provider, next })
-                }
-              />
-              <p className="text-center text-xs text-muted-foreground pt-4">
-                By signing in, you agree to our Terms of Service and Privacy Policy
-              </p>
-            </CardContent>
-          </Card>
+        <div className="text-center space-y-6">
+          <div className="space-y-2">
+            <h1 className="text-2xl font-semibold tracking-tight">
+              Sign in to DatingImage
+            </h1>
+            <p className="text-muted-foreground">
+              Sign in with your Google account to get started
+            </p>
+          </div>
+          <RenderProviders
+            providers={['google']}
+            isLoading={providerStatus === 'executing'}
+            onProviderLoginRequested={(provider: 'google') =>
+              executeProvider({ provider, next })
+            }
+          />
+          <p className="text-center text-xs text-muted-foreground">
+            By signing in, you agree to our{' '}
+            <a href="/terms" className="underline underline-offset-2 hover:text-foreground">
+              Terms of Service
+            </a>{' '}
+            and{' '}
+            <a href="/privacy" className="underline underline-offset-2 hover:text-foreground">
+              Privacy Policy
+            </a>
+          </p>
         </div>
       )}
     </div>

@@ -1,12 +1,33 @@
 import { execSync } from 'node:child_process';
 import { devices, type PlaywrightTestConfig } from '@playwright/test';
 import path from 'path';
+import fs from 'fs';
 
 const PORT = process.env.PORT || 3000;
 const baseURL = `http://localhost:${PORT}`;
 const isCI = !!process.env.CI;
 
 process.env.PLAYWRIGHT_TEST_BASE_URL ??= `${baseURL}/`;
+
+function loadEnvFile(filePath: string): Record<string, string> {
+  const result: Record<string, string> = {};
+  if (!fs.existsSync(filePath)) return result;
+  const content = fs.readFileSync(filePath, 'utf-8');
+  for (const line of content.split('\n')) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith('#')) continue;
+    const eqIdx = trimmed.indexOf('=');
+    if (eqIdx === -1) continue;
+    const key = trimmed.slice(0, eqIdx).trim();
+    let value = trimmed.slice(eqIdx + 1).trim();
+    // Remove surrounding quotes
+    if ((value.startsWith('"') && value.endsWith('"')) || (value.startsWith("'") && value.endsWith("'"))) {
+      value = value.slice(1, -1);
+    }
+    result[key] = value;
+  }
+  return result;
+}
 
 function parseEnvOutput(output: string): Record<string, string> {
   const result: Record<string, string> = {};
@@ -18,7 +39,26 @@ function parseEnvOutput(output: string): Record<string, string> {
 }
 
 function getWebServerEnv() {
+  // Load env files into a fresh object
   const webServerEnv = { ...process.env };
+
+  // Try loading .env.test and .env.local if env vars are missing
+  if (!webServerEnv.NEXT_PUBLIC_SUPABASE_URL) {
+    const testEnv = loadEnvFile(path.join(__dirname, '.env.test'));
+    const localEnv = loadEnvFile(path.join(__dirname, '.env.local'));
+    Object.assign(webServerEnv, localEnv, testEnv);
+  }
+
+  // If env vars are already set (e.g. from .env.local or CI), use them directly
+  if (
+    webServerEnv.NEXT_PUBLIC_SUPABASE_URL &&
+    webServerEnv.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
+  ) {
+    webServerEnv.NEXT_PUBLIC_SITE_URL ??= `${baseURL}/`;
+    return webServerEnv;
+  }
+
+  // Fallback to local Supabase
   const databaseDir = path.resolve(__dirname, '..', 'database');
 
   try {
@@ -41,7 +81,7 @@ function getWebServerEnv() {
     const err = error as { message?: string };
     throw new Error(
       err.message ??
-        'Playwright webServer could not resolve local Supabase settings. Start Supabase with: cd apps/database && pnpm supabase start'
+        'Playwright webServer could not resolve local Supabase settings. Set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY, or start Supabase with: cd apps/database && pnpm supabase start'
     );
   }
 }
@@ -56,12 +96,12 @@ const config: PlaywrightTestConfig = {
   outputDir: 'test-results/',
   reporter: isCI ? [['github'], ['html', { open: 'never' }]] : 'list',
   webServer: {
-    command: isCI ? 'pnpm start' : 'pnpm build && pnpm start',
+    command: 'pnpm start',
     cwd: __dirname,
     env: webServerEnv,
     url: baseURL,
-    timeout: isCI ? 180 * 1000 : 300 * 1000,
-    reuseExistingServer: !isCI,
+    timeout: 30 * 1000,
+    reuseExistingServer: true,
     stdout: 'pipe',
     stderr: 'pipe',
   },

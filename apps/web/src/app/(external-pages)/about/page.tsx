@@ -1,26 +1,30 @@
-import { AboutCTA } from './about-cta';
-import { AboutFeaturesGrid } from './about-features-grid';
 import { AboutHero } from './about-hero';
-import { AboutTechStack } from './about-tech-stack';
-
-const technologies = [
-  'Next.js 14',
-  'TypeScript',
-  'Supabase',
-  'Tailwind CSS',
-  'shadcn/ui',
-  'React Hook Form',
-  'Zod',
-  'Framer Motion',
-];
+import { AboutHowItWorks } from './about-how-it-works';
+import { AboutPrivacy } from './about-privacy';
+import { AboutGallery } from './about-gallery';
 
 export default function About() {
   return (
-    <div className="container mx-auto py-12 space-y-12 max-w-6xl">
-      <AboutHero />
-      <AboutFeaturesGrid />
-      <AboutCTA />
-      <AboutTechStack technologies={technologies} />
+    <div className="flex flex-col">
+      <section className="px-4 py-16 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-4xl">
+          <AboutHero />
+        </div>
+      </section>
+
+      <section className="border-t px-4 py-16 sm:px-6 lg:px-8 bg-muted/30">
+        <div className="mx-auto max-w-4xl">
+          <AboutHowItWorks />
+        </div>
+      </section>
+
+      <AboutGallery />
+
+      <section className="border-t px-4 py-16 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-4xl">
+          <AboutPrivacy />
+        </div>
+      </section>
     </div>
   );
 }

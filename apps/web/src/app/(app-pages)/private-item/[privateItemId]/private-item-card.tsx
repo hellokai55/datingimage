@@ -28,7 +28,7 @@ export async function PrivateItemCard({
     <div className="space-y-4">
 
 
-      <Card className="shadow-md border-t-4 border-t-primary">
+      <Card className="shadow-sm border-t-4 border-t-primary">
         <CardHeader className="pb-2">
           <T.H2 className="mb-1">{item.name}</T.H2>
           <div className="flex items-center gap-1 text-muted-foreground text-sm">

@@ -158,7 +158,24 @@ export async function getUserProjects() {
     throw new Error('Failed to fetch projects');
   }
 
-  return data || [];
+  // Generate signed URLs for first generated photo of each completed project
+  const projectsWithUrls = await Promise.all(
+    (data || []).map(async (project) => {
+      const firstPhoto = project.generated_photos?.[0];
+      if (firstPhoto?.storage_path) {
+        const { data: urlData } = await supabase.storage
+          .from('generated')
+          .createSignedUrl(firstPhoto.storage_path, 3600);
+        return {
+          ...project,
+          thumbnailUrl: urlData?.signedUrl || '',
+        };
+      }
+      return { ...project, thumbnailUrl: '' };
+    })
+  );
+
+  return projectsWithUrls;
 }
 
 export async function getProjectById(projectId: string) {

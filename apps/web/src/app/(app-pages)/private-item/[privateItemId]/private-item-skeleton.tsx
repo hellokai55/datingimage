@@ -9,7 +9,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 
 export function PrivateItemSkeleton() {
   return (
-    <Card className="shadow-md">
+    <Card className="shadow-sm">
       <CardHeader className="pb-2">
         <div className="flex justify-between items-start">
           <Skeleton className="h-6 w-32 mb-4" />

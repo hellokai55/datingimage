@@ -90,7 +90,7 @@ export const EmailAndPassword = ({
             <div className="text-sm">
               <Link
                 href="/forgot-password"
-                className="font-medium text-muted-foreground dark:hover:text-gray-600 hover:text-foreground"
+                className="font-medium text-muted-foreground hover:text-foreground"
               >
                 Forgot your password?
               </Link>

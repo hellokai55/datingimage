@@ -6,13 +6,6 @@ import { useRef } from 'react';
 import { toast } from 'sonner';
 
 import { Password } from '@/components/Auth/Password';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
 import { updatePasswordAction } from '@/data/user/security';
 
 export function UpdatePassword() {
@@ -41,23 +34,21 @@ export function UpdatePassword() {
 
   return (
     <div className="container h-full grid items-center text-left max-w-lg mx-auto overflow-auto">
-      <div className="space-y-8 ">
-        <Card>
-          <CardHeader>
-            <CardTitle>Reset Password</CardTitle>
-            <CardDescription>
-              Enter your email to receive a Magic Link to reset your password.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Password
-              isLoading={status === 'executing'}
-              onSubmit={(password: string) => execute({ password })}
-              label="Create your new Password"
-              buttonLabel="Confirm Password"
-            />
-          </CardContent>
-        </Card>
+      <div className="w-full max-w-sm mx-auto space-y-6">
+        <div className="space-y-2">
+          <h1 className="text-2xl font-semibold tracking-tight">
+            Reset Password
+          </h1>
+          <p className="text-muted-foreground">
+            Create a new password for your account.
+          </p>
+        </div>
+        <Password
+          isLoading={status === 'executing'}
+          onSubmit={(password: string) => execute({ password })}
+          label="Create your new Password"
+          buttonLabel="Confirm Password"
+        />
       </div>
     </div>
   );

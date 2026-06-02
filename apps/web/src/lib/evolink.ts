@@ -3,8 +3,11 @@ import 'server-only';
 const EVOLINK_API_URL = 'https://api.evolink.ai/v1';
 const API_KEY = process.env.EVOLINK_API_KEY;
 
-if (!API_KEY) {
-  throw new Error('EVOLINK_API_KEY is not set');
+function getApiKey(): string {
+  if (!API_KEY) {
+    throw new Error('EVOLINK_API_KEY is not set');
+  }
+  return API_KEY;
 }
 
 const SCENE_PROMPTS: Record<string, string> = {
@@ -32,7 +35,7 @@ export async function createGenerationTask(params: {
   const response = await fetch(`${EVOLINK_API_URL}/images/generations`, {
     method: 'POST',
     headers: {
-      'Authorization': `Bearer ${API_KEY}`,
+      'Authorization': `Bearer ${getApiKey()}`,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
@@ -58,7 +61,7 @@ export async function createGenerationTask(params: {
 export async function getTaskResult(taskId: string) {
   const response = await fetch(`${EVOLINK_API_URL}/tasks/${taskId}`, {
     headers: {
-      'Authorization': `Bearer ${API_KEY}`,
+      'Authorization': `Bearer ${getApiKey()}`,
     },
   });
 

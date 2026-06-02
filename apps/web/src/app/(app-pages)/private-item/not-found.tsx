@@ -12,7 +12,7 @@ import Link from 'next/link';
 export default function NotFound() {
   return (
     <div className="container mx-auto py-12 max-w-md">
-      <Card className="border-destructive/20 shadow-lg">
+      <Card className="border-destructive/20 shadow-sm">
         <CardHeader className="flex items-center justify-center pb-2">
           <FileQuestion className="h-16 w-16 text-muted-foreground mb-4" />
           <T.H2 className="text-center">Item Not Found</T.H2>

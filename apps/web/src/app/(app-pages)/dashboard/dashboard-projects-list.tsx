@@ -23,24 +23,27 @@ const SCENE_LABELS: Record<string, string> = {
 const STATUS_COLORS: Record<string, string> = {
   uploading: 'bg-yellow-500',
   queued: 'bg-blue-500',
-  generating: 'bg-purple-500',
+  generating: 'bg-amber-500',
   completed: 'bg-green-500',
   failed: 'bg-red-500',
   cancelled: 'bg-gray-500',
 };
 
+type Project = {
+  id: string;
+  title: string;
+  scene: string;
+  status: string;
+  created_at: string;
+  photo_count: number;
+  thumbnailUrl?: string;
+  generated_photos?: Array<{ id: string; storage_path: string }>;
+};
+
 export function DashboardProjectsList({
   projects,
 }: {
-  projects: Array<{
-    id: string;
-    title: string;
-    scene: string;
-    status: string;
-    created_at: string;
-    photo_count: number;
-    generated_photos?: Array<{ id: string; storage_path: string }>;
-  }>;
+  projects: Project[];
 }) {
   return (
     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -54,15 +57,7 @@ export function DashboardProjectsList({
 function ProjectCard({
   project,
 }: {
-  project: {
-    id: string;
-    title: string;
-    scene: string;
-    status: string;
-    created_at: string;
-    photo_count: number;
-    generated_photos?: Array<{ id: string; storage_path: string }>;
-  };
+  project: Project;
 }) {
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
@@ -79,7 +74,7 @@ function ProjectCard({
   const isClickable = project.status === 'completed';
 
   return (
-    <Card className="group relative overflow-hidden transition-shadow hover:shadow-md">
+    <Card className="group relative overflow-hidden transition-shadow hover:shadow-sm">
       <CardHeader className="pb-2">
         <div className="flex items-start justify-between">
           <div className="space-y-1">
@@ -96,29 +91,31 @@ function ProjectCard({
           </Badge>
         </div>
       </CardHeader>
-      <CardContent>
-        {isClickable ? (
-          <Link href={`/project/${project.id}`} className="block">
-            <div className="aspect-video rounded-md bg-muted flex items-center justify-center overflow-hidden">
-              {project.generated_photos && project.generated_photos.length > 0 ? (
-                <ProjectThumbnail projectId={project.id} />
-              ) : (
-                <ImageIcon className="h-8 w-8 text-muted-foreground" />
-              )}
+      <CardContent className="pt-0">
+        <div className="aspect-[4/3] rounded-lg bg-muted flex items-center justify-center overflow-hidden">
+          {project.status === 'generating' ? (
+            <div className="flex flex-col items-center gap-2 text-muted-foreground">
+              <Clock className="h-6 w-6 animate-pulse" />
+              <span className="text-xs">Generating...</span>
             </div>
-          </Link>
-        ) : (
-          <div className="aspect-video rounded-md bg-muted flex items-center justify-center">
-            {project.status === 'generating' ? (
-              <div className="flex flex-col items-center gap-2 text-muted-foreground">
-                <Clock className="h-6 w-6 animate-pulse" />
-                <span className="text-xs">Generating...</span>
-              </div>
-            ) : (
-              <ImageIcon className="h-8 w-8 text-muted-foreground" />
-            )}
-          </div>
-        )}
+          ) : project.status === 'completed' && project.thumbnailUrl ? (
+            <Link href={`/project/${project.id}`} className="block w-full h-full">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={project.thumbnailUrl}
+                alt={project.title}
+                className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+              />
+            </Link>
+          ) : project.status === 'failed' ? (
+            <div className="flex flex-col items-center gap-1 text-muted-foreground">
+              <ImageIcon className="h-6 w-6" />
+              <span className="text-xs">Generation failed</span>
+            </div>
+          ) : (
+            <ImageIcon className="h-8 w-8 text-muted-foreground" />
+          )}
+        </div>
         <div className="mt-3 flex items-center justify-between text-xs text-muted-foreground">
           <span>{project.photo_count} photos</span>
           <span>{formatDistanceToNow(new Date(project.created_at), { addSuffix: true })}</span>
@@ -135,11 +132,4 @@ function ProjectCard({
   );
 }
 
-function ProjectThumbnail({ projectId }: { projectId: string }) {
-  // Server-rendered thumbnail URL would be passed via props in a real implementation
-  return (
-    <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-primary/20 to-primary/5">
-      <ImageIcon className="h-8 w-8 text-primary/60" />
-    </div>
-  );
-}
+

@@ -74,7 +74,7 @@ export const Email = ({
             <div className="text-sm">
               <Link
                 href="/login"
-                className="font-medium text-blue-600 dark:text-blue-400 hover:text-blue-500"
+                className="font-medium text-primary hover:text-primary/80"
               >
                 Log in instead?
               </Link>
