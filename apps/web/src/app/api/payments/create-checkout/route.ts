@@ -102,7 +102,7 @@ export async function POST(request: Request) {
     console.error('Checkout creation error:', err);
     if (err instanceof z.ZodError) {
       return NextResponse.json(
-        { error: 'Invalid request', details: err.errors },
+        { error: 'Invalid request', details: err.issues },
         { status: 400 }
       );
     }
