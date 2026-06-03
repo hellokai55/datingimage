@@ -35,3 +35,7 @@ playwright/.auth/
 screenshots/
 CRITIQUE.md
 TEST_REPORT.md
+
+# Test env files
+.env.test
+.env.test.local
