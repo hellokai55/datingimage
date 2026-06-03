@@ -1,7 +1,101 @@
+'use client';
+
 import { Button } from '@/components/ui/button';
-import { Check, Star, Zap } from 'lucide-react';
+import { Check, Star, Zap, Loader2 } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+
+const CREDIT_PACKS = [
+  {
+    id: 'starter' as const,
+    name: 'Starter',
+    credits: 20,
+    price: 4.99,
+    features: [
+      '20 credits',
+      '2 full photo sets (8 photos each)',
+      'All 8 scenes',
+      'Standard resolution',
+    ],
+  },
+  {
+    id: 'popular' as const,
+    name: 'Popular',
+    credits: 50,
+    price: 9.99,
+    popular: true,
+    features: [
+      '50 credits',
+      '6 full photo sets (8 photos each)',
+      'All 8 scenes + future scenes',
+      'High resolution downloads',
+      'Priority generation queue',
+    ],
+  },
+  {
+    id: 'pro' as const,
+    name: 'Pro',
+    credits: 120,
+    price: 19.99,
+    features: [
+      '120 credits',
+      '15 full photo sets (8 photos each)',
+      'All 8 scenes + future scenes',
+      'High resolution downloads',
+      'Priority generation queue',
+      'Best value',
+    ],
+  },
+];
+
+function BuyButton({ packId }: { packId: 'starter' | 'popular' | 'pro' }) {
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+
+  const handleBuy = async () => {
+    setLoading(true);
+    try {
+      const res = await fetch('/api/payments/create-checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ packId }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        if (data.error === 'Authentication required') {
+          router.push('/login');
+          return;
+        }
+        throw new Error(data.error || 'Failed to create checkout');
+      }
+
+      // Redirect to Creem checkout
+      window.location.href = data.checkoutUrl;
+    } catch (err) {
+      console.error('Checkout error:', err);
+      alert('Something went wrong. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <Button className="w-full" onClick={handleBuy} disabled={loading}>
+      {loading ? (
+        <>
+          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+          Processing...
+        </>
+      ) : (
+        'Buy Credits'
+      )}
+    </Button>
+  );
+}
 
 export default function PricingPage() {
   return (
@@ -23,7 +117,7 @@ export default function PricingPage() {
 
       {/* Pricing Cards */}
       <section className="px-4 pb-16 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-4xl grid gap-6 md:grid-cols-2">
+        <div className="mx-auto max-w-5xl grid gap-6 md:grid-cols-3">
           {/* Free Tier */}
           <div className="rounded-2xl border bg-background p-8 hover-lift transition-all duration-300">
             <div className="flex items-center gap-2 mb-4">
@@ -56,59 +150,58 @@ export default function PricingPage() {
             </Button>
           </div>
 
-          {/* Pay Per Use — Popular */}
-          <div className="rounded-2xl border-2 border-primary bg-background p-8 relative hover-lift transition-all duration-300">
-            {/* Background photo */}
-            <div className="absolute inset-0 rounded-2xl overflow-hidden opacity-[0.04]">
-              <Image
-                src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=600&h=800&fit=crop&q=60"
-                alt=""
-                fill
-                className="object-cover"
-                unoptimized
-              />
-            </div>
-
-            <div className="relative">
-              <div className="flex justify-center -mt-11 mb-4">
-                <span className="bg-primary text-primary-foreground text-xs font-medium px-3 py-1 rounded-full flex items-center gap-1">
-                  <Star className="h-3 w-3 fill-current" />
-                  Most Popular
-                </span>
-              </div>
+          {/* Credit Packs */}
+          {CREDIT_PACKS.map((pack) => (
+            <div
+              key={pack.id}
+              className={`rounded-2xl p-8 relative hover-lift transition-all duration-300 ${
+                pack.popular
+                  ? 'border-2 border-primary bg-background'
+                  : 'border bg-background'
+              }`}
+            >
+              {pack.popular && (
+                <div className="flex justify-center -mt-11 mb-4">
+                  <span className="bg-primary text-primary-foreground text-xs font-medium px-3 py-1 rounded-full flex items-center gap-1">
+                    <Star className="h-3 w-3 fill-current" />
+                    Most Popular
+                  </span>
+                </div>
+              )}
 
               <div className="flex items-center gap-2 mb-4">
-                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10">
-                  <Star className="h-4 w-4 text-primary" />
+                <div
+                  className={`flex h-8 w-8 items-center justify-center rounded-lg ${
+                    pack.popular ? 'bg-primary/10' : 'bg-muted'
+                  }`}
+                >
+                  <Zap
+                    className={`h-4 w-4 ${
+                      pack.popular ? 'text-primary' : 'text-muted-foreground'
+                    }`}
+                  />
                 </div>
-                <h3 className="text-lg font-semibold">Pay Per Use</h3>
+                <h3 className="text-lg font-semibold">{pack.name}</h3>
               </div>
               <p className="text-sm text-muted-foreground">
-                Buy credits as you need them.
+                {pack.credits} credits to generate photos.
               </p>
               <div className="mt-6">
-                <span className="text-4xl font-bold">$4.99</span>
-                <span className="text-muted-foreground"> / 20 credits</span>
+                <span className="text-4xl font-bold">${pack.price}</span>
               </div>
               <ul className="mt-6 space-y-3">
-                {[
-                  '20 credits per pack',
-                  '2 full photo sets (8 photos each)',
-                  'All 8 scenes + future scenes',
-                  'High resolution downloads',
-                  'Priority generation queue',
-                ].map((feature) => (
+                {pack.features.map((feature) => (
                   <li key={feature} className="flex items-start gap-3 text-sm">
                     <Check className="h-4 w-4 text-primary shrink-0 mt-0.5" />
                     {feature}
                   </li>
                 ))}
               </ul>
-              <Button className="mt-8 w-full" asChild>
-                <Link href="/login">Buy Credits</Link>
-              </Button>
+              <div className="mt-8">
+                <BuyButton packId={pack.id} />
+              </div>
             </div>
-          </div>
+          ))}
         </div>
 
         {/* Photo strip */}
