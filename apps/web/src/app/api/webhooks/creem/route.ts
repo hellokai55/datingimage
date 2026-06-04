@@ -8,11 +8,11 @@ const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY!;
 export async function POST(request: Request) {
   try {
     const payload = await request.text();
-    const signature = request.headers.get('x-creem-signature') || '';
+    const signature = request.headers.get('creem-signature') || '';
     const webhookSecret = process.env.CREEM_WEBHOOK_SECRET;
 
     // Verify webhook signature if secret is configured
-    if (webhookSecret) {
+    if (webhookSecret && signature) {
       const crypto = await import('crypto');
       const expected = crypto
         .createHmac('sha256', webhookSecret)
@@ -31,14 +31,15 @@ export async function POST(request: Request) {
     }
 
     const event = JSON.parse(payload);
-    const eventType = event.event_type || event.type;
+    const eventType = event.event_type || event.type || event.eventType;
 
     // Only handle checkout.completed events
     if (eventType !== 'checkout.completed') {
       return NextResponse.json({ status: 'ignored', eventType });
     }
 
-    const checkoutData = event.data?.checkout || event.data;
+    // Creem webhook payload uses `object` for the checkout data
+    const checkoutData = event.object || event.data?.checkout || event.data;
     const checkoutId = checkoutData?.id;
     const paymentId = checkoutData?.payment?.id || checkoutData?.payment_id;
     const requestId = checkoutData?.request_id;

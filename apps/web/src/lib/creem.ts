@@ -2,6 +2,7 @@ import 'server-only';
 
 const CREEM_API_KEY = process.env.CREEM_API_KEY;
 const CREEM_API_URL = process.env.CREEM_API_URL || 'https://api.creem.io/v1';
+export const MOCK_CHECKOUT = process.env.CREEM_MOCK_CHECKOUT === 'true' || !CREEM_API_KEY;
 
 function getApiKey(): string {
   if (!CREEM_API_KEY) {
@@ -27,6 +28,16 @@ export interface CreemCheckout {
 export async function createCheckout(
   input: CreemCheckoutInput
 ): Promise<CreemCheckout> {
+  // Mock mode for local development / testing without real Creem credentials
+  if (MOCK_CHECKOUT) {
+    console.log('[MOCK] Creating checkout for', input.requestId);
+    return {
+      id: `mock_${input.requestId}`,
+      url: input.successUrl,
+      status: 'pending',
+    };
+  }
+
   const response = await fetch(`${CREEM_API_URL}/checkouts`, {
     method: 'POST',
     headers: {
@@ -39,9 +50,7 @@ export async function createCheckout(
         email: input.customerEmail,
       },
       product_id: input.productId,
-      payment: {
-        checkout_url: input.successUrl,
-      },
+      success_url: input.successUrl,
     }),
   });
 
